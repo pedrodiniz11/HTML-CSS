@@ -62,7 +62,7 @@ color: var(--cor06);
 main{
     background-color: white;
     max-width: 800px;
-    min-width: 320px;
+    min-width: 200px;
     padding: 10px;
     margin: auto;
     border-radius: 0px 0px 10px 10px;
