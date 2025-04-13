@@ -156,3 +156,6 @@ main a:hover{
 a.externo::after{
     content: '\1F517\00A0';
 }
+a.link{
+    background: linear-gradient(to right,#c5ebd6, white);
+}
