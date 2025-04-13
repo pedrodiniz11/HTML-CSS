@@ -103,5 +103,56 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
     </script>
+    <script>
+        const form = document.getElementById('commentForm');
+        const commentInput = document.getElementById('commentInput');
+        const commentsSection = document.getElementById('commentsSection');
+    
+        // Função para carregar comentários do servidor
+        async function loadComments() {
+            try {
+                const response = await fetch('https://api.exemplo.com/comments'); // Substitua pela URL real da API
+                const comments = await response.json();
+                commentsSection.innerHTML = ''; // Limpa os comentários existentes
+                comments.forEach(comment => {
+                    const commentDiv = document.createElement('div');
+                    commentDiv.classList.add('comment');
+                    commentDiv.textContent = comment.text;
+                    commentsSection.appendChild(commentDiv);
+                });
+            } catch (error) {
+                console.error('Erro ao carregar comentários:', error);
+            }
+        }
+    
+        // Função para enviar um novo comentário para o servidor
+        async function postComment(commentText) {
+            try {
+                await fetch('https://api.exemplo.com/comments', { // Substitua pela URL real da API
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ text: commentText }),
+                });
+                loadComments(); // Recarrega os comentários após enviar
+            } catch (error) {
+                console.error('Erro ao enviar comentário:', error);
+            }
+        }
+    
+        // Evento de envio do formulário
+        form.addEventListener('submit', function(event) {
+            event.preventDefault();
+            const commentText = commentInput.value.trim();
+            if (commentText) {
+                postComment(commentText); // Envia o comentário para o servidor
+                commentInput.value = '';
+            }
+        });
+    
+        // Carrega os comentários ao carregar a página
+        document.addEventListener('DOMContentLoaded', loadComments);
+    </script>
 </body>
 </html>
