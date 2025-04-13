@@ -3,14 +3,105 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contato</title>
+    <title>Comentários Públicos</title>
     <style>
-        
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        form {
+            margin-bottom: 20px;
+        }
+        textarea {
+            width: 100%;
+            height: 100px;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            resize: none;
+        }
+        button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .comments {
+            margin-top: 20px;
+        }
+        .comment {
+            background: #f9f9f9;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+        }
+        img{
+            width: 50px;
+            height: 50px;
+        }
     </style>
 </head>
 <body>
-    <h1>Deixe um comentário</h1>
-    
-    <input type="text" name="" id="">
+    <a href="android.html"><img src="imagens/icone-de-seta-a-esquerda_1295705-16258-removebg-preview.png" alt=""></a>
+    <div class="container">
+        <h1>Deixe seu Comentário</h1>
+        <form id="commentForm">
+            <textarea id="commentInput" placeholder="Escreva seu comentário aqui..." required></textarea>
+            <button type="submit">Enviar</button>
+        </form>
+        <div class="comments" id="commentsSection">
+            <!-- Comentários aparecerão aqui -->
+        </div>
+    </div>
+
+    <script>
+        const form = document.getElementById('commentForm');
+        const commentInput = document.getElementById('commentInput');
+        const commentsSection = document.getElementById('commentsSection');
+
+        form.addEventListener('submit', function(event) {
+            event.preventDefault();
+            const commentText = commentInput.value.trim();
+            if (commentText) {
+                const commentDiv = document.createElement('div');
+                commentDiv.classList.add('comment');
+                commentDiv.textContent = commentText;
+                commentsSection.appendChild(commentDiv);
+                commentInput.value = '';
+            }
+    localStorage.setItem('comments', commentsSection.innerHTML);
+});
+
+// Load saved comments from localStorage on page load
+document.addEventListener('DOMContentLoaded', function() {
+    const savedComments = localStorage.getItem('comments');
+    if (savedComments) {
+        commentsSection.innerHTML = savedComments;
+    }
+});
+    </script>
 </body>
 </html>
